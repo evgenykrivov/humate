@@ -12,7 +12,7 @@ services:
     # Для хранения данных (если потребуется)
     volumes:
       - ./logs:/var/log/nginx
-      - ./dist:/usr/share/nginx/html
+      - ./build:/usr/share/nginx/html
     networks:
       - humate-network
     environment:
