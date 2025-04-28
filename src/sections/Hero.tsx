@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'components/Button';
 import { scrollToCTA } from 'services/scrollService';
+// Напрямую импортируем изображение из папки public через префикс @/
+import heroImage from '@/assets/hero.png';
 
 // Data for different features
 const features = [
@@ -211,7 +213,7 @@ export const Hero: React.FC = () => {
             </Button>
           </div>
           <div className="mt-12 lg:mt-16 h-64 md:h-80 lg:h-96 max-w-4xl mx-auto">
-            <img src="/hero.png" alt="Hero" className="w-full h-full object-contain rounded-lg" />
+            <img src={heroImage} alt="Hero" className="w-full h-full object-contain rounded-lg" />
           </div>
         </div>
       </div>
