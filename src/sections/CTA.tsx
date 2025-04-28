@@ -79,7 +79,7 @@ export const CTA: React.FC = () => {
 
         {!isSubmitted ? (
           <div className="max-w-md mx-auto mb-8">
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3" noValidate>
               <div className="flex-grow relative">
                 <div
                   className={`relative transition-all duration-300 ${
@@ -87,7 +87,7 @@ export const CTA: React.FC = () => {
                   }`}
                 >
                   <input
-                    type="email"
+                    type="text"
                     placeholder="Your email"
                     value={email}
                     onChange={handleEmailChange}
@@ -127,7 +127,7 @@ export const CTA: React.FC = () => {
                 type="submit"
                 variant="outline"
                 size="lg"
-                className={`bg-white/90 text-blue-600 hover:bg-white border-transparent shadow-md hover:shadow-lg transition-all duration-300 min-w-[120px] ${
+                className={`h-max bg-white/90 text-blue-600 hover:bg-white border-transparent shadow-md hover:shadow-lg transition-all duration-300 min-w-[120px] ${
                   isLoading ? 'opacity-90 cursor-not-allowed' : ''
                 }`}
                 disabled={isLoading}

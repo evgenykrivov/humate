@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Column 1: Logo and description */}
           <div>
-            <div className="text-white text-xl font-bold mb-4"> AI</div>
+            <div className="text-white text-xl font-bold mb-4">Humate AI</div>
             <p className="text-gray-400 mb-4">
               Innovative AI-powered solutions for business and everyday tasks.
             </p>
