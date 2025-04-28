@@ -1,0 +1,183 @@
+/* Стили для анимированных кнопок с градиентами */
+
+.btn-animated {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: all var(--transition-normal);
+  background-size: 200% 200%;
+  border-radius: inherit;
+}
+
+.btn-animated:hover::before {
+  background-position: 100% 100%;
+}
+
+.btn-animated.primary::before {
+  background-image: var(--animated-gradient-primary);
+  background-position: 0% 0%;
+}
+
+.btn-animated.secondary::before {
+  background-image: var(--animated-gradient-secondary);
+  background-position: 0% 0%;
+}
+
+/* Стили для плавно анимированных градиентов */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-gradient-animated {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent !important; /* Убираем фон самой кнопки */
+  border: none !important; /* Убираем обводку */
+}
+
+.btn-gradient-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-size: 200% 200%;
+  border-radius: inherit;
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.btn-gradient-animated.primary::before {
+  background-image: var(--animated-gradient-primary);
+  animation: gradientAnimation 3s ease infinite;
+}
+
+.btn-gradient-animated.secondary::before {
+  background-image: var(--animated-gradient-secondary);
+  animation: gradientAnimation 3s ease infinite;
+}
+
+.btn-gradient-animated:hover::before {
+  opacity: 0.95;
+}
+
+/* Классы для обратной совместимости */
+.gradient-btn {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: none !important;
+}
+
+.primary-gradient {
+  position: relative;
+}
+
+.primary-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: var(--animated-gradient-primary);
+  animation: gradientAnimation 3s ease infinite;
+  border-radius: inherit;
+}
+
+/* Проверка на наличие градиента для кнопок в мобильном меню */
+.mobile-menu-btn.active {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.mobile-menu-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: var(--animated-gradient-primary);
+  animation: gradientAnimation 3s ease infinite;
+  border-radius: inherit;
+}
+
+/* Стили для Cookie Consent Popup */
+.cookie-consent-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.cookie-consent-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 400ms ease-out, opacity 400ms ease;
+}
+
+.cookie-consent-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.cookie-consent-exit-active {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 400ms ease-in, opacity 300ms ease;
+}
+
+/* Медиазапрос для устройств без возможности наведения (тачскрины) */
+@media (hover: none) {
+  /* Общие стили для всех кнопок */
+  button:active,
+  .btn-animated:active,
+  .btn-gradient-animated:active,
+  .gradient-btn:active {
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+
+  /* Заменяем hover на active для градиентных кнопок */
+  .btn-gradient-animated:active::before {
+    opacity: 0.95;
+  }
+
+  /* Замена hover на active для стандартных кнопок */
+  button.bg-white:active {
+    background-color: #f9fafb !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+  }
+
+  button.bg-gray-100:active {
+    background-color: #e5e7eb !important;
+  }
+
+  /* Замена hover на active для градиента в Tailwind */
+  .bg-gradient-to-r:active {
+    background-position: 100% 0% !important;
+  }
+}

@@ -1,13 +1,46 @@
-import { Header } from 'components/Header';
-import { Button } from 'components/Button';
-import { ReactComponent as Logo } from 'assets/favicon.svg';
+import { Header, CookieConsent } from './components';
+import {
+  Hero,
+  Features,
+  UseCases,
+  AITechnologies,
+  CTA,
+  Footer,
+  PricingPlans,
+  FAQ,
+} from './sections';
 
 function App() {
   return (
-    <div className="App">
-      <Header title="hola" />
-      <Logo height={100} width={100} />
-      <Button onClick={() => alert('hola')}>Heyo</Button>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <div id="hero">
+          <Hero />
+        </div>
+        <div id="features">
+          <Features />
+        </div>
+        <div id="use-cases">
+          <UseCases />
+        </div>
+        <div id="ai-technologies">
+          <AITechnologies />
+        </div>
+        <div id="contact">
+          <CTA />
+        </div>
+        <div id="pricing-plans">
+          <PricingPlans />
+        </div>
+        <div id="faq">
+          <FAQ />
+        </div>
+      </main>
+      <Footer />
+
+      {/* Cookie Consent notification */}
+      <CookieConsent />
     </div>
   );
 }

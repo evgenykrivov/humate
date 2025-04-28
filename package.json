@@ -1,20 +1,19 @@
 {
-  "name": "vite-react-ts",
+  "name": "humate",
   "version": "0.0.0",
-  "description": "React Typescript Starter Template with Vite",
+  "description": "Humate Project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uchihamalolan/vite-react-ts.git"
+    "url": ""
   },
   "keywords": [
     "vite",
     "react",
-    "starter",
-    "template"
+    "humate"
   ],
   "author": "Malolan B. <uchihamalolan@gmail.com> (https://twitter.com/malolan12)",
   "license": "MIT",
-  "homepage": "https://github.com/uchihamalolan/vite-react-ts",
+  "homepage": "",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
