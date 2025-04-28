@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Column 1: Logo and description */}
           <div>
-            <div className="text-white text-xl font-bold mb-4">Humate</div>
+            <div className="text-white text-xl font-bold mb-4"> AI</div>
             <p className="text-gray-400 mb-4">
               Innovative AI-powered solutions for business and everyday tasks.
             </p>
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
         <div className="border-t border-gray-700 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Humate. All rights reserved.
+              © {new Date().getFullYear()} Humate Inc. All rights reserved.
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-end">
               <a href="#faq" className="text-sm text-gray-400 hover:text-white">

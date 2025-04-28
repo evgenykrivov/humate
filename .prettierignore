@@ -3,3 +3,5 @@ dist
 coverage
 .eslintcache
 pnpm-lock.yaml
+build
+

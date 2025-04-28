@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'components/Button';
-import heroImage from '../assets/hero.png'; // Import image from assets
 import { scrollToCTA } from 'services/scrollService';
 
 // Data for different features
@@ -9,35 +8,34 @@ const features = [
     id: 'search',
     title: 'AI Search Engine',
     description: 'Intelligent search that understands your queries and finds exactly what you need',
-    image: heroImage, // Replace with real images
     icon: '🔍',
   },
   {
     id: 'image',
     title: 'AI Image Generator',
     description: 'Create unique images based on text descriptions',
-    image: heroImage, // Replace with real images
+
     icon: '🎨',
   },
   {
     id: 'link',
     title: 'AI Link Analyzer',
     description: 'Analyze and check links for safety and relevance',
-    image: heroImage, // Replace with real images
+
     icon: '🔗',
   },
   {
     id: 'pdf',
     title: 'AI Chat PDF',
     description: 'Interact with your PDF documents through a convenient chat interface',
-    image: heroImage, // Replace with real images
+
     icon: '📄',
   },
   {
     id: 'youtube',
     title: 'AI Youtube Video Summarizer',
     description: 'Get concise and informative summaries of YouTube videos',
-    image: heroImage, // Replace with real images
+
     icon: '📹',
   },
 ];
@@ -213,11 +211,7 @@ export const Hero: React.FC = () => {
             </Button>
           </div>
           <div className="mt-12 lg:mt-16 h-64 md:h-80 lg:h-96 max-w-4xl mx-auto">
-            <img
-              src={visibleContent.image}
-              alt={`${visibleContent.title} Illustration`}
-              className="w-full h-full object-contain rounded-lg"
-            />
+            <img src="/hero.png" alt="Hero" className="w-full h-full object-contain rounded-lg" />
           </div>
         </div>
       </div>

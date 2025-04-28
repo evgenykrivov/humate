@@ -131,7 +131,7 @@ export function Header() {
               {/* Replace with your Logo component */}
               {/* <Logo className="h-8 w-auto" /> */}
               <a href="#hero" className="text-xl font-bold text-[var(--color-gray-900)]">
-                Humate
+                Humate AI
               </a>
             </div>
 
