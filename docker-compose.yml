@@ -6,7 +6,7 @@ services:
     container_name: humate-web
     restart: always
     ports:
-      - "7891:3000"
+      - "8445:3000"
     # Для хранения данных (если потребуется)
     volumes:
       - ./logs:/var/log/nginx
