@@ -1,10 +1,12 @@
+version: '3'
+
 services:
   humate-app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: humate-web
-    restart: always
+    restart: unless-stopped
     ports:
       - "8445:3000"
     # Для хранения данных (если потребуется)
