@@ -9,6 +9,7 @@ import path from 'path';
 export default defineConfig({
   envDir: './env',
   plugins: [react(), tsconfigPaths(), svgrPlugin()],
+  publicDir: 'public',
   /* If proxy is needed
   server: {
     proxy: {
@@ -19,6 +20,8 @@ export default defineConfig({
   build: {
     sourcemap: true,
     outDir: 'build',
+    emptyOutDir: true,
+    assetsInlineLimit: 0,
   },
   resolve: {
     alias: {
