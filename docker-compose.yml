@@ -1,0 +1,21 @@
+services:
+  humate-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: humate-web
+    restart: always
+    ports:
+      - "7891:80"
+    # Для хранения данных (если потребуется)
+    volumes:
+      - ./logs:/var/log/nginx
+      - ./dist:/usr/share/nginx/html
+    networks:
+      - humate-network
+    environment:
+      - NODE_ENV=production
+
+networks:
+  humate-network:
+    driver: bridge
