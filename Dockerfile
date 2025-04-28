@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 # Debug: показываем содержимое папки после сборки
-RUN npm run build && ls -la dist
+RUN npm run build && ls -la build
 
 FROM nginx:alpine
 
