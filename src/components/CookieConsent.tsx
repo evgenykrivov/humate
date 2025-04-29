@@ -7,7 +7,7 @@ interface CookieConsentProps {
 }
 
 export const CookieConsent: React.FC<CookieConsentProps> = ({
-  privacyPolicyUrl = '/privacy-policy',
+  privacyPolicyUrl = '/docs/privacy-policy',
 }) => {
   // State for displaying the popup
   const [visible, setVisible] = useState(false);
@@ -60,7 +60,7 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
               By continuing to use our site, you agree to our{' '}
               <a
                 href={privacyPolicyUrl}
-                className="text-[var(--color-primary)] hover:underline"
+                className="cursor-pointer text-[var(--color-primary)] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -18,27 +18,42 @@ export const Footer: React.FC = () => {
             <h3 className="text-white text-lg font-semibold mb-4">Products</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#features" className="text-gray-400 hover:text-white">
+                <a
+                  href="#features"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   AI Assistants
                 </a>
               </li>
               <li>
-                <a href="#features" className="text-gray-400 hover:text-white">
+                <a
+                  href="#features"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Data Processing
                 </a>
               </li>
               <li>
-                <a href="#use-cases" className="text-gray-400 hover:text-white">
+                <a
+                  href="#use-cases"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Content Generation
                 </a>
               </li>
               <li>
-                <a href="#ai-technologies" className="text-gray-400 hover:text-white">
+                <a
+                  href="#ai-technologies"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Analytics Solutions
                 </a>
               </li>
               <li>
-                <a href="#pricing-plans" className="text-gray-400 hover:text-white">
+                <a
+                  href="#pricing-plans"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   API Integrations
                 </a>
               </li>
@@ -50,22 +65,34 @@ export const Footer: React.FC = () => {
             <h3 className="text-white text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#hero" className="text-gray-400 hover:text-white">
+                <a
+                  href="#hero"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-white">
+                <a
+                  href="#contact"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#ai-technologies" className="text-gray-400 hover:text-white">
+                <a
+                  href="#ai-technologies"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-white">
+                <a
+                  href="#contact"
+                  className="text-gray-400 hover:text-white active:text-white cursor-pointer transition-colors duration-300"
+                >
                   Contact
                 </a>
               </li>
@@ -79,14 +106,21 @@ export const Footer: React.FC = () => {
               © {new Date().getFullYear()} Humate Inc. All rights reserved.
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-end">
-              <a href="#faq" className="text-sm text-gray-400 hover:text-white">
+              <a
+                href="/docs/privacy-policy"
+                target="_blank"
+                rel="noreferrer"
+                className="cursor-pointer text-sm text-gray-400 hover:text-white active:text-white transition-colors duration-300"
+              >
                 Privacy Policy
               </a>
-              <a href="#faq" className="text-sm text-gray-400 hover:text-white">
+              <a
+                href="/docs/terms"
+                target="_blank"
+                rel="noreferrer"
+                className="cursor-pointer text-sm text-gray-400 hover:text-white active:text-white transition-colors duration-300"
+              >
                 Terms of Use
-              </a>
-              <a href="#faq" className="text-sm text-gray-400 hover:text-white">
-                Cookie Settings
               </a>
             </div>
           </div>
