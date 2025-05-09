@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import {   useState, useEffect   } from 'react';
 import { Button } from 'components/Button';
 
 export const CTA: React.FC = () => {

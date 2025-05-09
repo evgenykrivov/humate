@@ -6,3 +6,5 @@ export { Footer } from './Footer';
 export { AITechnologies } from './AITechnologies';
 export { PricingPlans } from './PricingPlans';
 export { FAQ } from './FAQ';
+export { Pricing } from './Pricing';
+export { Testimonials } from './Testimonials';

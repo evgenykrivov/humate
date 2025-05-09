@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-unused-modules
 export const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="w-full py-16 md:py-20 lg:py-24 bg-gray-50">

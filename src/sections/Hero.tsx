@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import * as React from 'react';
+import {   useState, useEffect, useRef   } from 'react';
 import { Button } from 'components/Button';
 import { scrollToCTA } from 'services/scrollService';
 // Напрямую используем путь к файлу

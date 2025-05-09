@@ -19,6 +19,7 @@ export const scrollToCTA = (): void => {
 /**
  * Плавно прокручивает страницу к любому элементу по его id
  */
+// eslint-disable-next-line import/no-unused-modules
 export const scrollToElement = (elementId: string): void => {
   const element = document.getElementById(elementId);
 

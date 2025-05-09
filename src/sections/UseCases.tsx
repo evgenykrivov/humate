@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import * as React from 'react';
+import {   useState, useEffect, useRef   } from 'react';
 import { Button } from 'components/Button';
 
 // Data for different use cases
