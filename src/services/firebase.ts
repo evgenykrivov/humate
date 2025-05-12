@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, FirebaseApp, FirebaseError } from 'firebase/app';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -10,8 +10,8 @@ import {
   signInWithPopup,
   browserPopupRedirectResolver,
   signInWithRedirect,
+  Auth,
 } from 'firebase/auth';
-import { FirebaseError } from 'firebase/app';
 
 // Конфигурация Firebase из переменных окружения
 const firebaseConfig = {
@@ -24,10 +24,34 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Инициализация Firebase и Google провайдера
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+// Проверка готовности Firebase
+let isFirebaseInitialized = false;
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let googleProvider: GoogleAuthProvider | undefined;
+
+/**
+ * Инициализирует Firebase, если он еще не инициализирован
+ */
+export const initializeFirebase = () => {
+  if (!isFirebaseInitialized) {
+    try {
+      // Инициализация Firebase и Google провайдера
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      googleProvider = new GoogleAuthProvider();
+      isFirebaseInitialized = true;
+      console.log('Firebase successfully initialized');
+    } catch (error) {
+      console.error('Firebase initialization error:', error);
+      throw error;
+    }
+  }
+  return { app, auth, googleProvider };
+};
+
+// Инициализируем Firebase при импорте модуля
+initializeFirebase();
 
 // Интерфейс для ответа авторизации с JWT
 export interface AuthResponse {
@@ -35,8 +59,34 @@ export interface AuthResponse {
   userId: string | number;
 }
 
-// Функция для авторизации через Google с получением JWT
+/**
+ * Проверяет, что Firebase инициализирован
+ */
+export const ensureFirebaseInitialized = () => {
+  if (!isFirebaseInitialized) {
+    initializeFirebase();
+  }
+  return isFirebaseInitialized;
+};
+
+/**
+ * Получает экземпляры Firebase с проверкой инициализации
+ * @private
+ */
+const getFirebaseInstances = () => {
+  ensureFirebaseInitialized();
+  if (!auth || !googleProvider) {
+    throw new Error('Firebase not properly initialized');
+  }
+  return { auth, googleProvider };
+};
+
+/**
+ * Выполняет авторизацию через Google и получает JWT
+ */
 export const signInWithGoogleAndGetJWT = async (): Promise<AuthResponse> => {
+  const { auth, googleProvider } = getFirebaseInstances();
+
   try {
     // Пробуем popup сначала
     const result = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
@@ -70,6 +120,7 @@ export const signInWithGoogleAndGetJWT = async (): Promise<AuthResponse> => {
     const fbError = error as FirebaseError;
     if (fbError.code === 'auth/popup-blocked') {
       try {
+        const { auth, googleProvider } = getFirebaseInstances();
         await signInWithRedirect(auth, googleProvider);
         // Это не выполнится, так как страница перенаправится
         return { jwt: '', userId: '' };
@@ -82,8 +133,12 @@ export const signInWithGoogleAndGetJWT = async (): Promise<AuthResponse> => {
   }
 };
 
-// Функция для авторизации через Google popup
+/**
+ * Выполняет авторизацию через Google popup
+ */
 export const signInWithGoogle = async () => {
+  const { auth, googleProvider } = getFirebaseInstances();
+
   try {
     // Пробуем popup сначала
     return await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
@@ -95,6 +150,7 @@ export const signInWithGoogle = async () => {
     if (fbError.code === 'auth/popup-blocked') {
       try {
         // Если popup заблокирован, пробуем redirect
+        const { auth, googleProvider } = getFirebaseInstances();
         await signInWithRedirect(auth, googleProvider);
         // Это не выполнится, так как страница перенаправится
         return null;
@@ -107,25 +163,50 @@ export const signInWithGoogle = async () => {
   }
 };
 
-// Стандартные функции для работы с аутентификацией
+/**
+ * Авторизация с email и паролем
+ */
 export const loginWithEmailAndPassword = (email: string, password: string) => {
+  const { auth } = getFirebaseInstances();
   return signInWithEmailAndPassword(auth, email, password);
 };
 
+/**
+ * Регистрация с email и паролем
+ */
 export const registerWithEmailAndPassword = (email: string, password: string) => {
+  const { auth } = getFirebaseInstances();
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
+/**
+ * Выход пользователя
+ */
 export const logoutUser = () => {
+  const { auth } = getFirebaseInstances();
   // Очищаем JWT токены при выходе
   localStorage.removeItem('humate_jwt_token');
   localStorage.removeItem('humate_user_id');
   return signOut(auth);
 };
 
+/**
+ * Подписка на изменения состояния авторизации
+ */
 export const subscribeToAuthChanges = (callback: (user: User | null) => void) => {
+  const { auth } = getFirebaseInstances();
   return onAuthStateChanged(auth, callback);
 };
 
-// Экспортируем auth для использования в других модулях
-export { auth, googleProvider };
+/**
+ * Получение текущего аутентифицированного пользователя
+ */
+export const getCurrentUser = (): User | null => {
+  try {
+    const { auth } = getFirebaseInstances();
+    return auth.currentUser;
+  } catch (error) {
+    console.error('Error getting current user:', error);
+    return null;
+  }
+};

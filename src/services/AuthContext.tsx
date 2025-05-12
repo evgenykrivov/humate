@@ -9,6 +9,7 @@ import {
   signInWithGoogleAndGetJWT,
   signInWithGoogle,
   AuthResponse,
+  ensureFirebaseInitialized,
 } from './firebase';
 
 interface AuthContextType {
@@ -41,9 +42,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.getItem('humate_user_id')
   );
   const [loading, setLoading] = useState(true);
+  const [firebaseReady, setFirebaseReady] = useState(false);
+
+  // Инициализируем Firebase
+  useEffect(() => {
+    const initFirebase = async () => {
+      try {
+        await Promise.resolve(ensureFirebaseInitialized());
+        setFirebaseReady(true);
+      } catch (error) {
+        console.error('Error initializing Firebase in AuthContext:', error);
+        // Устанавливаем firebaseReady в true, чтобы не блокировать рендеринг
+        setFirebaseReady(true);
+      }
+    };
+
+    initFirebase();
+  }, []);
 
   // Subscribe to Firebase auth state changes
   useEffect(() => {
+    // Не подписываемся на изменения, пока Firebase не готов
+    if (!firebaseReady) return;
+
     const unsubscribe = subscribeToAuthChanges((user) => {
       setCurrentUser(user);
       setLoading(false);
@@ -59,10 +80,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Unsubscribe on component unmount
     return unsubscribe;
-  }, []);
+  }, [firebaseReady]);
 
   // Email/password login function
   const login = async (email: string, password: string) => {
+    if (!firebaseReady) {
+      await Promise.resolve(ensureFirebaseInitialized());
+    }
+
     try {
       await loginWithEmailAndPassword(email, password);
       // TODO: Add backend JWT fetch for email login if needed
@@ -74,6 +99,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Registration function
   const register = async (email: string, password: string) => {
+    if (!firebaseReady) {
+      await Promise.resolve(ensureFirebaseInitialized());
+    }
+
     try {
       await registerWithEmailAndPassword(email, password);
       // TODO: Add backend JWT fetch for registration if needed
@@ -85,6 +114,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Google login with backend JWT
   const loginWithGoogle = async () => {
+    if (!firebaseReady) {
+      await Promise.resolve(ensureFirebaseInitialized());
+    }
+
     try {
       const authResponse: AuthResponse = await signInWithGoogleAndGetJWT();
       setJwtToken(authResponse.jwt);
@@ -103,6 +136,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Простой вход через Google без JWT (использует signInWithGoogle)
   const loginWithGooglePopup = async () => {
+    if (!firebaseReady) {
+      await Promise.resolve(ensureFirebaseInitialized());
+    }
+
     try {
       await signInWithGoogle();
       // После успешного входа через Google, пользователь будет доступен через Firebase Auth
@@ -114,6 +151,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Logout function
   const logout = async () => {
+    if (!firebaseReady) {
+      await Promise.resolve(ensureFirebaseInitialized());
+    }
+
     try {
       await logoutUser();
       setJwtToken(null);
@@ -136,6 +177,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loginWithGooglePopup,
     logout,
   };
+
+  // Рендерим только когда Firebase готов
+  if (!firebaseReady) {
+    return null;
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

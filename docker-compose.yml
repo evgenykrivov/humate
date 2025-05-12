@@ -9,14 +9,19 @@ services:
     restart: unless-stopped
     ports:
       - "8445:3000"
-    # Для хранения данных (если потребуется)
+    # Монтируем только логи, но не перезаписываем html-директорию
     volumes:
       - ./logs:/var/log/nginx
-      - ./build:/usr/share/nginx/html
     networks:
       - humate-network
     environment:
       - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health.txt"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
 networks:
   humate-network:
