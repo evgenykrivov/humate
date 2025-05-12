@@ -64,7 +64,7 @@ export const UseCases: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<string>('auto');
   const [autoCycleEnabled, setAutoCycleEnabled] = useState(true);
-  const autoCycleIntervalRef = useRef<number | null>(null);
+  const autoCycleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Reference for measuring next content without affecting DOM
   const nextContentRef = useRef<HTMLDivElement>(null);

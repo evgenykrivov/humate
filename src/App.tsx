@@ -25,12 +25,13 @@ function App() {
           <Hero />
           <div className="hidden">
             <Button
-              label="Auth"
               onClick={() => {
                 setIsModalOpen(true);
                 authService.initialize();
               }}
-            />
+            >
+              Auth
+            </Button>
           </div>
         </div>
         <div id="features">
@@ -62,7 +63,7 @@ function App() {
 
       <CookieConsent />
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Авторизация">
         <GoogleAuthForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
